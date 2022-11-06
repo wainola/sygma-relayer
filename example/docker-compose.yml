@@ -7,8 +7,8 @@ services:
     image: ghcr.io/sygmaprotocol/sygma-solidity:evm1-v1.1.1
     container_name: evm1-1
     command: ganache-cli --chainId 1337 -d --db data/ --blockTime 2 > /dev/null
-    logging:
-      driver: none
+    # logging:
+    #   driver: none
     ports:
       - "8545:8545"
 
@@ -17,8 +17,8 @@ services:
     image: ghcr.io/sygmaprotocol/sygma-solidity:evm2-v1.1.1
     command: ganache-cli --chainId 1338 -d --db data/ --blockTime 2 > /dev/null
     container_name: evm2-1
-    logging:
-      driver: none
+    # logging:
+    #   driver: none
     ports:
       - "8547:8545"
 
