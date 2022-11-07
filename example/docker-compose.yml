@@ -19,7 +19,7 @@ services:
     # image: ghcr.io/sygmaprotocol/sygma-solidity:evm2-v1.1.1
     build: 
       context: https://github.com/wainola/sygma-solidity.git#feat/forked-networks
-    command: ganache --chain.chainId 1338 -h '0.0.0.0' -d --db data/ --fork.url=wss://mainnet.infura.io/ws/v3/26eb3e866d6e402b8b22369161572c80 --blockTime 2
+    command: ganache --chain.chainId 1338 -h '0.0.0.0' -d --db data2/ --fork.url=wss://mainnet.infura.io/ws/v3/26eb3e866d6e402b8b22369161572c80 --blockTime 2
     container_name: evm2-1
     # logging:
     #   driver: none
