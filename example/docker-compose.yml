@@ -7,8 +7,12 @@ services:
     # image: ghcr.io/sygmaprotocol/sygma-solidity:evm1-v1.1.1
     build: 
       context: https://github.com/wainola/sygma-solidity.git#feat/forked-networks
+      dockerfile: ./dockerfiles/node1/Dockerfile
     container_name: evm1-1
-    command: ganache --chain.chainId 1337 -h '0.0.0.0' -d --db data/ --fork.url=wss://mainnet.infura.io/ws/v3/26eb3e866d6e402b8b22369161572c80 --blockTime 2
+    env_file:
+      - ./.env
+    command: ganache --chain.chainId 1337 -h '0.0.0.0' -d --db data/ --fork.url=${INFURA_ENDPOINT} --miner.blockTime 5
+    # command: ganache --chain.chainId 1337 -h '0.0.0.0' -d --db data/ --miner.blockTime 5
     # logging:
     #   driver: none
     ports:
@@ -19,7 +23,11 @@ services:
     # image: ghcr.io/sygmaprotocol/sygma-solidity:evm2-v1.1.1
     build: 
       context: https://github.com/wainola/sygma-solidity.git#feat/forked-networks
-    command: ganache --chain.chainId 1338 -h '0.0.0.0' -d --db data2/ --fork.url=wss://mainnet.infura.io/ws/v3/26eb3e866d6e402b8b22369161572c80 --blockTime 2
+      dockerfile: ./dockerfiles/node2/Dockerfile
+    command: ganache --chain.chainId 1338 -h '0.0.0.0' -d --db data2/ --fork.url=${INFURA_ENDPOINT} --miner.blockTime 5
+    env_file:
+      - ./.env
+    # command: ganache --chain.chainId 1338 -h '0.0.0.0' -d --db data2/ --miner.blockTime 5
     container_name: evm2-1
     # logging:
     #   driver: none
@@ -31,7 +39,7 @@ services:
     build:
       context: ../.
       dockerfile: ./example/Dockerfile
-    command: sh -c "sleep 5 && ./bridge run --config /cfg/config_evm-evm_1.json --fresh"
+    command: sh -c "sleep 5 && ./bridge run --config /cfg/config_evm-evm_1.json --latest"
     depends_on:
       - evm1-1
       - evm2-1
@@ -44,7 +52,7 @@ services:
     build:
       context: ../.
       dockerfile: ./example/Dockerfile
-    command: sh -c "sleep 5 && ./bridge run --config /cfg/config_evm-evm_2.json --fresh"
+    command: sh -c "sleep 5 && ./bridge run --config /cfg/config_evm-evm_2.json --latest"
     depends_on:
       - evm1-1
       - evm2-1
@@ -57,7 +65,7 @@ services:
     build:
       context: ../.
       dockerfile: ./example/Dockerfile
-    command: sh -c "sleep 5 && ./bridge run --config /cfg/config_evm-evm_3.json --fresh"
+    command: sh -c "sleep 5 && ./bridge run --config /cfg/config_evm-evm_3.json --latest"
     depends_on:
       - evm1-1
       - evm2-1
