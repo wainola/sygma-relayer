@@ -11,7 +11,7 @@ services:
     container_name: evm1-1
     env_file:
       - ./.env
-    command: ganache --chain.chainId 1337 -h '0.0.0.0' -d --db data/ --fork.url=${INFURA_ENDPOINT} --miner.blockTime 5
+    command: ganache --chain.chainId 1337 -h '0.0.0.0' -d --db data/ --fork.url=${INFURA_ENDPOINT} --miner.blockTime 5 --wallet.unlockedAccounts 0x2FAF487A4414Fe77e2327F0bf4AE2a264a776AD2 --fork.blockNumber=13909440
     # command: ganache --chain.chainId 1337 -h '0.0.0.0' -d --db data/ --miner.blockTime 5
     # logging:
     #   driver: none
@@ -24,7 +24,7 @@ services:
     build: 
       context: https://github.com/wainola/sygma-solidity.git#feat/forked-networks
       dockerfile: ./dockerfiles/node2/Dockerfile
-    command: ganache --chain.chainId 1338 -h '0.0.0.0' -d --db data2/ --fork.url=${INFURA_ENDPOINT} --miner.blockTime 5
+    command: ganache --chain.chainId 1338 -h '0.0.0.0' -d --db data2/ --fork.url=${INFURA_ENDPOINT} --miner.blockTime 5 --wallet.unlockedAccounts 0x2FAF487A4414Fe77e2327F0bf4AE2a264a776AD2 --fork.blockNumber=13909440
     env_file:
       - ./.env
     # command: ganache --chain.chainId 1338 -h '0.0.0.0' -d --db data2/ --miner.blockTime 5
